@@ -28,5 +28,28 @@ function generateSum(limit){
     return helper;
 }
 
-const sum = generateSum(4);
+// const sum = generateSum(4);
+
+
+function sum(a, b, c, d){
+    return a+b+c+d
+}
+
+
+function curry(fun){
+    if(!fun) throw new Error("curry expects a function")
+  let executer =  function(...args1){
+    if(args1.length >= fun.length)  return fun(...args1);
+    return (...args2) => {
+        return executer(...args1, ...args2)
+    }
+
+  }
+  return executer;
+}
+
+let curriedSum = curry(sum);
+console.log(calculate(1)(2)(3)(4)); // 10
+console.log(calculate(1, 2, 3, 4, 5, 6)); // 10
+console.log(calculate(1)(2, 3, 4)); // 10
 
