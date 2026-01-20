@@ -1,0 +1,23 @@
+.auto-suggest-container{
+    width: 400px;
+}
+
+.input{
+    padding: 4px 10px;
+    width: 100%;
+}
+
+.auto-suggest-box{
+    border: 1px solid;
+    width: 100%;
+    margin-top: 2px;
+    padding: 10px;
+
+}
+.auto-suggest-item{
+    cursor: pointer;
+}
+
+.hide-auto-box{
+    display: none;
+}
