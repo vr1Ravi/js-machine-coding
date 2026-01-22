@@ -1,113 +1,86 @@
-const inputBox = document.getElementById("auto-suggest");
-const autoSuggestionBox = document.getElementById("auto-suggest-box");
-const autoSuggestions = document.getElementsByClassName("auto-suggest-item");
-const loader =  document.getElementById("loader");
-const excludeClassNames = ["auto-suggest-box", "input", "auto-suggest-item"]
+/*
+Create an autosuggestion box in vanilla js.
+Show suggestions area below the input field.
+The suggestion area should be visible only when input box is focused.
+Fetch the suggestions based on the input, and populate the suggestion menu with the suggestions.
+On click of suggestion populate the input box with the suggestion value and focus the back the input box
+*/
 
-
-const createZeroStateFunction = () => {
-   const zeroStateText = document.createElement("p");
-   zeroStateText.innerText = "No suggestion found!, please continue typing."
-   autoSuggestionBox.appendChild(zeroStateText)
-}
-
-const handleFocus = () => {
-  autoSuggestionBox.classList.remove("hide-auto-box")
-  autoSuggestionBox.innerHTML = "";
-  loader.classList.add("toggle-show")
-  getSuggestions("random")
-  .then((response) => {
-    console.log({response});
-    
-    if(!response.length){
-      createZeroStateFunction();
-      return;
-    }
-    response.forEach(suggestion => {
-       const searchSuggestion = document.createElement("p");
-        searchSuggestion.innerText = suggestion
-        searchSuggestion.classList.add("auto-suggest-item");
-        autoSuggestionBox.appendChild(searchSuggestion)
-    })
-}).catch(() => {
-  createZeroStateFunction()
-}).finally(() => {
-    loader.classList.remove("toggle-show")
-})
-
-}
-
-const handleChange = (event) => {
-const inputVal = event.target.value;
-
-getSuggestions(inputVal).then((response) => {
-    (response || []).forEach((data) => { 
-        const searchSuggestion = document.createElement("p");
-        searchSuggestion.innerText = data
-        searchSuggestion.classList.add("auto-suggest-item");
-        autoSuggestionBox.appendChild(searchSuggestion)
-    })
-})
-}
-
-const handleAutoSuggestionBoxClick = (event) => {    
-if(event.target.className === "auto-suggest-item"){
-inputBox.value = event.target.innerText;
-autoSuggestionBox.classList.add("hide-auto-box");
-}
-}
-const handleWindowClick = (event) => {
-const isOutSideDetected = !excludeClassNames.includes(event.target.className)
-if(isOutSideDetected) autoSuggestionBox.classList.add("hide-auto-box");
-}
-window.addEventListener("mousedown", handleWindowClick)
-autoSuggestionBox.addEventListener("mousedown", handleAutoSuggestionBoxClick)
-inputBox.addEventListener("focus", handleFocus)
-inputBox.addEventListener("input", handleChange)
-
-
-
-
-
-
-
-
-
-
-// Mock Server
-const FAILURE_COUNT = 10;
-const LATENCY = 200;
-
-function getRandomBool(n) {
-  const threshold = 1000;
-  if (n > threshold) n = threshold;
-  return Math.floor(Math.random() * threshold) % n === 0;
-}
-
-function getSuggestions(text) {
-  var pre = 'pre';
-  var post = 'post';
-  var results = [];
-  if (getRandomBool(2)) {
-    results.push(pre + text);
-  }
-  if (getRandomBool(2)) {
-    results.push(text);
-  }
-  if (getRandomBool(2)) {
-    results.push(text + post);
-  }
-  if (getRandomBool(2)) {
-    results.push(pre + text + post);
-  }
-  return new Promise((resolve, reject) => {
-    const randomTimeout = Math.random() * LATENCY;
-    setTimeout(() => {
-      if (getRandomBool(FAILURE_COUNT)) {
-        reject();
-      } else {
-        resolve(results);
-      }
-    }, randomTimeout);
+  const input = document.getElementById("suggestion-input");
+  const suggestionContainer = document.getElementById("suggestion-menu");
+  /*
+    Toggle the visibility of menu
+    */
+  input.addEventListener("focus", () => {
+    suggestionContainer.classList.add("open");
   });
-}
+  input.addEventListener("focusout", () => {
+    suggestionContainer.classList.remove("open");
+  });
+
+  /*
+Fetch and process search 
+*/
+  const handleInputChange = debounce(fetchProcessSuggestions, 500);
+
+  input.addEventListener("input", async (e) => {
+    const value = e.target.value;
+    handleInputChange(value);
+  });
+
+  /*
+Onclick on an item populate the input and refocus the input field
+*/
+  suggestionContainer.addEventListener("click", (e) => {
+    console.log({tag:   e.target.tagName});
+    
+    if (e.target.tagName === "LI") {
+      input.value = e.target.textContent;
+      input.focus();
+    }
+  });
+
+  async function fetchProcessSuggestions(value) {
+    if (value) {
+      const products = await fetchSuggestions(value);
+      const items = [];
+      // This will only run when there is an item
+      products.forEach((p) => {
+        const item = document.createElement("li");
+        item.className = "suggestion-menu__item";
+        item.textContent = p.name;
+        items.push(item);
+      });
+      // Clear the previous results before inserting new results for the new query
+      suggestionContainer.innerHTML = "";
+      suggestionContainer.append(...items);
+    } else {
+      suggestionContainer.innerHTML = "";
+    }
+  }
+
+  async function fetchSuggestions(search) {
+    try {
+      const res = await fetch(
+        `https://dummyjson.com/products/search?q=${search}`,
+      );
+      const products = await res.json();
+      return products.products.map((p) => ({
+        name: p.title,
+      }));
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function debounce(fn, delay) {
+    let timerId = null;
+    return (...args) => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
