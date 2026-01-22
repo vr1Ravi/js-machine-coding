@@ -1,17 +1,41 @@
 const inputBox = document.getElementById("auto-suggest");
 const autoSuggestionBox = document.getElementById("auto-suggest-box");
 const autoSuggestions = document.getElementsByClassName("auto-suggest-item");
+const loader =  document.getElementById("loader");
+const excludeClassNames = ["auto-suggest-box", "input", "auto-suggest-item"]
 
-const excludeClassNames = ["auto-suggest-box", "input"]
 
+const createZeroStateFunction = () => {
+   const zeroStateText = document.createElement("p");
+   zeroStateText.innerText = "No suggestion found!, please continue typing."
+   autoSuggestionBox.appendChild(zeroStateText)
+}
 
-
-const handleFocus = () => autoSuggestionBox.classList.remove("hide-auto-box")
-const handleBlur = (event) => {
-    console.log({event});
+const handleFocus = () => {
+  autoSuggestionBox.classList.remove("hide-auto-box")
+  autoSuggestionBox.innerHTML = "";
+  loader.classList.add("toggle-show")
+  getSuggestions("random")
+  .then((response) => {
+    console.log({response});
     
-autoSuggestionBox.classList.add("hide-auto-box")
-} 
+    if(!response.length){
+      createZeroStateFunction();
+      return;
+    }
+    response.forEach(suggestion => {
+       const searchSuggestion = document.createElement("p");
+        searchSuggestion.innerText = suggestion
+        searchSuggestion.classList.add("auto-suggest-item");
+        autoSuggestionBox.appendChild(searchSuggestion)
+    })
+}).catch(() => {
+  createZeroStateFunction()
+}).finally(() => {
+    loader.classList.remove("toggle-show")
+})
+
+}
 
 const handleChange = (event) => {
 const inputVal = event.target.value;
@@ -26,20 +50,22 @@ getSuggestions(inputVal).then((response) => {
 })
 }
 
-const handleAutoSuggestionBoxClick = (event) => {
-    event.preventDefault();
-    const targetElement = event.target;
-    inputBox.value = targetElement.innerText
+const handleAutoSuggestionBoxClick = (event) => {    
+if(event.target.className === "auto-suggest-item"){
+inputBox.value = event.target.innerText;
+autoSuggestionBox.classList.add("hide-auto-box");
 }
-
+}
 const handleWindowClick = (event) => {
-   const isOutDetected = !excludeClassNames.includes(event.target.className);
-   if(isOutDetected) autoSuggestionBox.classList.add("hide-auto-box");
+const isOutSideDetected = !excludeClassNames.includes(event.target.className)
+if(isOutSideDetected) autoSuggestionBox.classList.add("hide-auto-box");
 }
-window.addEventListener("click", handleWindowClick)
-autoSuggestionBox.addEventListener("click", handleAutoSuggestionBoxClick)
+window.addEventListener("mousedown", handleWindowClick)
+autoSuggestionBox.addEventListener("mousedown", handleAutoSuggestionBoxClick)
 inputBox.addEventListener("focus", handleFocus)
 inputBox.addEventListener("input", handleChange)
+
+
 
 
 
