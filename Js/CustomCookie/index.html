@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom cookie</title>
+</head>
+<body>
+    
+    <script>
+        // Object.defineProperty(obj, prop, descriptor)
+        const useCustomCookie = () => {
+            const store = new Map();
+
+            Object.defineProperty(document, "myCookie", {
+                 configurable:true,
+                 set(val){
+                    const {key, value, options} = parseCookieString(val);
+                    let expiry = options["max-age"] ? Date.now() + options["max-age"] * 1000 : Infinity
+                    store.set(key, {
+                        value, expiry
+                    })
+                 },
+                 get(){
+                 
+                    
+                    const currentTIme =  Date.now();
+                    let myCookieData = [];
+
+                    store.forEach((value, key) => {
+                        if(value.expiry <= currentTIme){
+                            store.delete(key);
+                        }else{
+                            myCookieData.push(`${key}=${value.value}`)
+                        } 
+                        
+                    })
+                    return myCookieData.join("; ")
+                 }
+            })
+
+            const parseCookieString = (str) => {
+                const [entry, ...rest] = str.split(";");
+                const [key, value] = getKeyValue(entry);
+
+                const options = {};
+
+                for(let option of rest){
+                    const [key, value] = getKeyValue(option);
+                    options[key] = value
+                }
+
+                return {key, value, options}
+
+            }
+            const getKeyValue = (str) => str.split("=").map(s => s.trim())
+        }
+        useCustomCookie();
+
+
+
+
+
+        document.myCookie = "name=Ravi;max-age=1"
+        document.myCookie = "role=Architect"
+
+        console.log(document.myCookie);
+
+        setTimeout(() => {
+            console.log(document.myCookie);
+            
+        }, 1500)
+        
+
+
+    </script>
+</body>
+</html>
