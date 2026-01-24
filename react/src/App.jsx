@@ -1,11 +1,12 @@
 import { CaptureOnScroll } from './components/CaptureOnScroll';
+import ToggleArrayItem from './components/ToggleArrayItem';
 
 function App() {
   return (
    <div>
     {/* <DebounceSearch/> */}
-
-    <CaptureOnScroll/>
+     {/* <CaptureOnScroll/> */}
+     <ToggleArrayItem/>
    </div>
   )
 }
