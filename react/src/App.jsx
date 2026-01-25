@@ -1,15 +1,22 @@
 import { CaptureOnScroll } from './components/CaptureOnScroll';
 import HandleRaceExample from './components/HandleRace';
+import Toaster from './components/ToastContainer';
+import ToastExample from './components/ToastExample';
 import ToggleArrayItem from './components/ToggleArrayItem';
 
 function App() {
   return (
-   <div>
+    <>
+    <Toaster/>
+    <div>
     {/* <DebounceSearch/> */}
      {/* <CaptureOnScroll/> */}
      {/* <ToggleArrayItem/> */}
-     <HandleRaceExample/>
+     {/* <HandleRaceExample/> */}
+     <ToastExample/>
    </div>
+    </>
+   
   )
 }
 
