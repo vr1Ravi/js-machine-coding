@@ -28,10 +28,14 @@ function HandleRaceExample() {
             if(flag) setResult(res) 
         })
 
+        // This will run in 2 cases when component mounts, unmounts (remove from dom) and prior to next re-render or prior to next update of state inside dep array
+        // On reload the whole page cause this to run as well but technically that is unmounting and mounting (this is browser behaviour)
         return () => {
+            console.log("runnnnnnn");
+            
            flag = false 
         }
-    },[search])
+    },[])
   return (
     <div>
         <input type='text' value={search} onChange={handleChange}/>
