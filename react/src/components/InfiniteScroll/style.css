@@ -1,0 +1,22 @@
+.item-container{
+    height: 400px;
+    background-color: black;
+    width: 500px;
+    padding: 10px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.item {
+    color: white;
+    border: 1px solid gray;
+    padding: 4px 8px;
+}
+
+.loader{
+    color: white;
+    
+}
