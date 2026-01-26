@@ -1,0 +1,24 @@
+.progress-container{
+    border: 1px solid;
+    height: 700px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+ }
+
+ .progress {
+    position: relative;
+    background-color: gray;
+    border-radius: 4px;
+    height: 10px;
+ }
+
+ .progress-completion{
+    position: absolute;
+    background-color: green;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+ }
