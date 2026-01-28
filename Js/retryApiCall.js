@@ -1,12 +1,10 @@
 async function retryCall(fn, retires){
-    console.log("retry", retires)
     try {
-        const resposne = await fn();
-        console.log("5", resposne);  
+        const resposne = await fn();  
         return resposne;
     } catch (error) {
         if(retires === 1) return error;
-        retryCall(fn, retires - 1)
+        return retryCall(fn, retires - 1)
     }
 }
 
@@ -25,8 +23,7 @@ function fetchResponse(){
 }
 async function callApi(){
      try {
-        const response = await fetchResponse();
-        console.log("30", response);        
+        const response = await fetchResponse();      
         if(response.data) return  response.data
      } catch (error) {
         try {
