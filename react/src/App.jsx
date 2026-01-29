@@ -1,4 +1,5 @@
 import { CaptureOnScroll } from './components/CaptureOnScroll';
+import Counter from './components/counter';
 import HandleRaceExample from './components/HandleRace';
 import InfiniteScrollDomApi from './components/InfiniteScroll';
 import InfiniteScrollIntersectionObserver from './components/InfiniteScrollIntersectionObserver';
@@ -19,7 +20,8 @@ function App() {
      {/* <ToastExample/> */}
      {/* <InfiniteScrollDomApi /> */}
      {/* <InfiniteScrollIntersectionObserver/> */}
-     <ProgressBar/>
+     {/* <ProgressBar/> */}
+     <Counter/>
    </div>
     </>
    
