@@ -22,8 +22,7 @@ function Fn(obj){
         for(let key in obj){
             const val = obj[key];
             if(typeof val === "function"){
-                const funArgLen = val.length;
-                const evalData = val(...args.slice(0, funArgLen));
+                const evalData = val(...args);
                 obj[key] = evalData;
             }else{
                  Fn(val)(...args);
