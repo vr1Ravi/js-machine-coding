@@ -1,0 +1,31 @@
+.grid-light {
+  height: 400px;
+  width: 400px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-row {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.light {
+  border: 1px solid white;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+}
+
+.off {
+  background-color: red;
+}
+
+.toggle {
+  background-color: purple;
+}
