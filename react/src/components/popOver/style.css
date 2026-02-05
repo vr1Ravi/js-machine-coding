@@ -1,0 +1,23 @@
+.pop-over {
+  position: relative;
+}
+
+.action {
+  padding: 4px 8px;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 12%;
+  margin-bottom: 4px;
+}
+.content-box {
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+.hidden-content {
+  opacity: 0;
+}

@@ -13,7 +13,7 @@ import ToggleArrayItem from "./components/ToggleArrayItem";
 function App() {
   return (
     <>
-      <Toaster />
+      {/* <Toaster /> */}
       <div>
         {/* <DebounceSearch/> */}
         {/* <CaptureOnScroll/> */}
@@ -25,7 +25,10 @@ function App() {
         {/* <ProgressBar/> */}
         {/* <Counter/> */}
         {/* <GridLights/> */}
-        <PopOver></PopOver>
+        <PopOver>
+          <PopOver.Action label={"Show"} />
+          <PopOver.Content>Hello there</PopOver.Content>
+        </PopOver>
       </div>
     </>
   );
