@@ -6,6 +6,7 @@ import InfiniteScrollDomApi from "./components/InfiniteScroll";
 import InfiniteScrollIntersectionObserver from "./components/InfiniteScrollIntersectionObserver";
 import PopOver from "./components/popOver";
 import ProgressBar from "./components/ProgressBar";
+import DragAndDrop from "./components/DragAndDrop";
 import Toaster from "./components/ToastContainer";
 import ToastExample from "./components/ToastExample";
 import ToggleArrayItem from "./components/ToggleArrayItem";
@@ -25,10 +26,12 @@ function App() {
         {/* <ProgressBar/> */}
         {/* <Counter/> */}
         {/* <GridLights/> */}
-        <PopOver>
+        {/* <PopOver>
           <PopOver.Action label={"Show"} />
           <PopOver.Content>Hello there</PopOver.Content>
-        </PopOver>
+        </PopOver> */}
+
+        <DragAndDrop />
       </div>
     </>
   );
