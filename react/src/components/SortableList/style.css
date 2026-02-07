@@ -1,0 +1,23 @@
+.sortable-list {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-height: 500px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+}
+.list-item {
+  text-align: center;
+  padding: 6px;
+  border-bottom: 1px solid #ccc;
+  cursor: grab;
+}
+.list-item:active {
+  cursor: grabbing;
+}
+.grabbing {
+  background-color: gray;
+}
+.dropzone {
+  background-color: lightblue;
+}

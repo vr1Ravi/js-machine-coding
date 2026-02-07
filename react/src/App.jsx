@@ -10,6 +10,7 @@ import DragAndDrop from "./components/DragAndDrop";
 import Toaster from "./components/ToastContainer";
 import ToastExample from "./components/ToastExample";
 import ToggleArrayItem from "./components/ToggleArrayItem";
+import SortableList from "./components/SortableList";
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
           <PopOver.Content>Hello there</PopOver.Content>
         </PopOver> */}
 
-        <DragAndDrop />
+        {/* <DragAndDrop /> */}
+        <SortableList />
       </div>
     </>
   );
