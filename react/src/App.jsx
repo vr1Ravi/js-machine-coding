@@ -11,6 +11,7 @@ import Toaster from "./components/ToastContainer";
 import ToastExample from "./components/ToastExample";
 import ToggleArrayItem from "./components/ToggleArrayItem";
 import SortableList from "./components/SortableList";
+import StopWatch from "./StopWatch";
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
         </PopOver> */}
 
         {/* <DragAndDrop /> */}
-        <SortableList />
+        {/* <SortableList /> */}
+        <StopWatch />
       </div>
     </>
   );
