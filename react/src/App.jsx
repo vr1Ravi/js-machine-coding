@@ -12,6 +12,7 @@ import ToastExample from "./components/ToastExample";
 import ToggleArrayItem from "./components/ToggleArrayItem";
 import SortableList from "./components/SortableList";
 import StopWatch from "./StopWatch";
+import Switch from "./components/Switch";
 
 function App() {
   return (
@@ -35,7 +36,8 @@ function App() {
 
         {/* <DragAndDrop /> */}
         {/* <SortableList /> */}
-        <StopWatch />
+        {/* <StopWatch /> */}
+        <Switch />
       </div>
     </>
   );
