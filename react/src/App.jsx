@@ -13,8 +13,13 @@ import ToggleArrayItem from "./components/ToggleArrayItem";
 import SortableList from "./components/SortableList";
 import StopWatch from "./StopWatch";
 import Switch from "./components/Switch";
+import Pagination from "./components/Pagination";
+import { PAGINATION_DUMMY_DATA } from "./resources";
 
 function App() {
+  const renderRow = (data) => {
+    return <div>{data}</div>;
+  };
   return (
     <>
       {/* <Toaster /> */}
@@ -37,7 +42,8 @@ function App() {
         {/* <DragAndDrop /> */}
         {/* <SortableList /> */}
         {/* <StopWatch /> */}
-        <Switch />
+        {/* <Switch /> */}
+        <Pagination data={PAGINATION_DUMMY_DATA} renderRow={renderRow} />
       </div>
     </>
   );
